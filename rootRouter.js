@@ -7,17 +7,17 @@ import {
     AsyncStorage
 } from 'react-native';
 
-import Landing from './scenes/landing';
-import Register from './scenes/register';
-import RegisterConfirmation from './scenes/regconf'
-import LogIn from './scenes/login';
-import Dashboard from './scenes/dashboard';
-import Loading from './scenes/loading';
-import {API, DEV } from './utils/config';
-import { globals } from './style';
+import Loading from './src/scenes/Loading';
+import Landing from './src/scenes/Landing';
+import Register from './src/scenes/Register';
+import RegisterConfirmation from './src/scenes/Register/Confirmation';
+import Login from './src/scenes/Login';
+import Dashboard from './src/scenes/Dashboard';
+import {API, DEV } from './src/utils/config';
+import { globals } from './src/style/globals';
 
 
-export default class router extends Component {
+export default class rootRouter extends Component {
     constructor(){
         super();
         this.logout = this.logout.bind(this);
@@ -32,6 +32,7 @@ export default class router extends Component {
     componentDidMount(){
         this._loadLoginCredentials()
     }
+
     async _loadLoginCredentials(){
         try {
             let sid = await AsyncStorage.getItem('sid');
@@ -45,9 +46,11 @@ export default class router extends Component {
             this.ready(err);
         }
     }
+
     ready(err){
         this.setState({ ready: true });
     }
+
     fetchUser(sid){
         fetch(`${API}/users/me`, { headers: extend(Headers, { 'Set-Cookie': `sid=${sid}`})})
             .then(response => response.json())
@@ -55,9 +58,11 @@ export default class router extends Component {
             .catch(err => this.ready(err))
             .done();
     }
+
     logout(){
         this.nav.push({ name: 'Landing' })
     }
+
     updateUser(user){
         this.setState({ user });
     }
@@ -65,7 +70,8 @@ export default class router extends Component {
     render() {
         if ( ! this.state.ready ) { return <Loading /> }
         return (
-            <Navigator
+            <Landing/>
+           /* <Navigator
                 style={globals.flex}
                 ref={(el) => this.nav = el }
                 initialRoute={{ name: this.state.initialRoute }}
@@ -105,7 +111,7 @@ export default class router extends Component {
                             );
                     }
                 }}
-            />
+            />*/
         );
     }
 }

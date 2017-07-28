@@ -5,10 +5,10 @@ import { observer, inject } from 'mobx-react';
 import styled from 'styled-components/native';
 import debounce from 'lodash.debounce';
 
-import SearchInput from '../components/SearchInput';
-import ListItem from '../components/ListItem';
+import SearchInput from '../../../components/SearchInput';
+import ListItem from '../../../components/ListItem';
 
-import type { SearchStore } from '../types';
+import type { SearchStore } from '../../../utils/types';
 
 type Props = {
     searchStore: SearchStore;

@@ -5,7 +5,7 @@ import {
 import { Provider } from 'mobx-react';
 
 
-import Stack from './src/rootRouter';
+import Root from './rootRouter';
 import stores from './src/stores';
 
 
@@ -13,7 +13,7 @@ export default class App extends Component {
     render() {
         return (
             <Provider {...stores}>
-                <Stack />
+                <Root />
             </Provider>
         );
     }
