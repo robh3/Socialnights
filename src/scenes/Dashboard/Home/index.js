@@ -26,14 +26,14 @@ export default class Home extends Component {
 
     static navigationOptions = {
         title: 'Spotify songs',
-    }
+    };
 
     debounceInput = debounce((query) => { this.props.searchStore.getTrackList(query); }, 500);
 
     onTextInputChange = (value: string) => {
         this.query = value;
         this.debounceInput(value);
-    }
+    };
 
     render() {
         return (

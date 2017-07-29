@@ -6,8 +6,8 @@ const {width, height} = Dimensions.get('window');
 export default class index extends Component {
 
     constructor(props) {
-        super(props)
-        console.log(props)
+        super(props);
+        console.log(props);
     }
 
     componentDidMount() {
