@@ -5,14 +5,20 @@
     "sdkVersion": "19.0.0",
     "version":"1.0.0",
     "orientation":"portrait",
-    "primaryColor":"#cccccc",
-    "icon":"https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+    "primaryColor":"#000",
+    "icon":"https://socialnights.com/app/assets/app-icon.png",
     "notification":{
-      "icon":"https://s3.amazonaws.com/exp-us-standard/placeholder-push-icon.png",
-      "color":"#000000"
+      "icon":"https://socialnights.com/app/assets/app-notification-icon.png",
+      "color":"#121215"
     },
     "loading":{
-      "icon":"https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png"
+      "icon":"https://socialnights.com/app/assets/app-icon.png"
     },
+    "ios": {
+      "bundleIdentifier": "com.socialnights.app"
+    },
+    "android": {
+      "package": "com.socialnights.app"
+    }
   }
 }

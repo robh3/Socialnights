@@ -3,9 +3,13 @@ import {
     AppRegistry,
     ActivityIndicator,
     View,
-    Navigator,
-    AsyncStorage
+    StyleSheet,
+    AsyncStorage,
 } from 'react-native';
+
+import {
+  StackNavigator,
+} from 'react-navigation';
 
 import Loading from './src/scenes/Loading';
 import Landing from './src/scenes/Landing';
@@ -14,19 +18,55 @@ import RegisterConfirmation from './src/scenes/Register/Confirmation';
 import Login from './src/scenes/Login';
 import Dashboard from './src/scenes/Dashboard';
 import {API, DEV } from './src/utils/config';
-import { globals } from './src/style/globals';
+import * as css from './src/style';
 
 
-export default class rootRouter extends Component {
+
+const AppRouter = StackNavigator({
+    Landing: {
+        screen: Landing,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Register: {
+        screen: Register,
+        navigationOptions: {
+            ...css.header,
+        }
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            ...css.header,
+        }
+    },
+},{
+    initialRouteName: 'Landing',
+    headerMode: 'screen',
+});
+
+
+export default class RootRouter extends Component {
     constructor(){
         super();
-        this.logout = this.logout.bind(this);
-        this.updateUser = this.updateUser.bind(this);
+
+        this._logout = this._logout.bind(this);
+        this._updateUser = this._updateUser.bind(this);
+
         this.state = {
             user          : null,
             ready         : false,
             initialRoute  : 'Landing',
         }
+    }
+
+    _navigateTo = (routeName: string) => {
+        const actionToDispatch = NavigationActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName })]
+        })
+        this.props.navigation.dispatch(actionToDispatch)
     }
 
     componentDidMount(){
@@ -38,7 +78,7 @@ export default class rootRouter extends Component {
             let sid = await AsyncStorage.getItem('sid');
             console.log('SID', sid);
             if (sid){
-                this.fetchUser(sid);
+                this._fetchUser(sid);
             } else {
                 this.ready();
             }
@@ -51,7 +91,7 @@ export default class rootRouter extends Component {
         this.setState({ ready: true });
     }
 
-    fetchUser(sid){
+    _fetchUser(sid){
         fetch(`${API}/users/me`, { headers: extend(Headers, { 'Set-Cookie': `sid=${sid}`})})
             .then(response => response.json())
             .then(user => this.setState({ user, ready: true, initialRoute: 'Dashboard' }))
@@ -59,59 +99,19 @@ export default class rootRouter extends Component {
             .done();
     }
 
-    logout(){
+    _logout(){
         this.nav.push({ name: 'Landing' })
     }
 
-    updateUser(user){
+    _updateUser(user){
         this.setState({ user });
     }
 
     render() {
         if ( ! this.state.ready ) { return <Loading /> }
+
         return (
-            <Landing/>
-           /* <Navigator
-                style={globals.flex}
-                ref={(el) => this.nav = el }
-                initialRoute={{ name: this.state.initialRoute }}
-                renderScene={(route, navigator) => {
-                    switch(route.name){
-                        case 'Landing':
-                            return (
-                                <Landing navigator={navigator}/>
-                            );
-                        case 'Dashboard':
-                            return (
-                                <Dashboard
-                                    updateUser={this.updateUser}
-                                    navigator={navigator}
-                                    logout={this.logout}
-                                    user={this.state.user}
-                                />
-                            );
-                        case 'Register':
-                            return (
-                                <Register navigator={navigator}/>
-                            );
-                        case 'RegisterConfirmation':
-                            return (
-                                <RegisterConfirmation
-                                    {...route}
-                                    updateUser={this.updateUser}
-                                    navigator={navigator}
-                                />
-                            );
-                        case 'Login':
-                            return (
-                                <Login
-                                    navigator={navigator}
-                                    updateUser={this.updateUser}
-                                />
-                            );
-                    }
-                }}
-            />*/
+            <AppRouter/>
         );
     }
 }
