@@ -31,6 +31,8 @@
     "moment": "^2.18.1",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
+    "react-native-fontawesome": "^5.7.0",
+    "react-native-vector-icons": "^4.3.0",
     "react-navigation": "^1.0.0-beta.11",
     "styled-components": "^2.1.1"
   }

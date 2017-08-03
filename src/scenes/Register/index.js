@@ -5,7 +5,7 @@ import * as css from 'src/style';
 export default class index extends Component {
 
     static navigationOptions = {
-        title: 'Register',
+        title: 'Sign Up',
     }
 
     constructor(props) {

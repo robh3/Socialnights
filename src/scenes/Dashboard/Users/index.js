@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import * as css from 'src/style';
 
-const {width, height} = Dimensions.get('window');
-
-export default class index extends Component {
+export default class Users extends Component {
 
     static navigationOptions = {
-        title: 'Sign In',
+        title: 'Users',
     }
 
     constructor(props) {
@@ -21,16 +19,14 @@ export default class index extends Component {
 
 
     render() {
-
         const {params} = this.props.navigation.state;
 
         return (
             <View style={css.global.v_container}>
-                <Text style={css.global.body1}>Login</Text>
+                <Text style={css.global.body1}>Users</Text>
             </View>
         );
     }
 
 
 }
-

@@ -3,6 +3,7 @@ import { StyleSheet, Image, Text, View, Dimensions, } from 'react-native';
 
 import Images from '@assets/images';
 import Button from 'apsl-react-native-button';
+import { NavigationActions } from 'react-navigation'
 
 const {width, height} = Dimensions.get('window');
 
@@ -18,8 +19,16 @@ export default class landing extends Component {
 
 
 
+
     render() {
         const { navigate } = this.props.navigation;
+        const dashboardAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Dashboard'})
+            ]
+        })
+
 
         return (
             <Image source={Images.lqLandingBackground} style={styles.app}>
@@ -29,18 +38,18 @@ export default class landing extends Component {
                         </View>
                         <View style={styles.footerContainer}>
                             <Image source={Images.textLogo}/>
-                            <Text style={styles.sloganText}>connect . discover . indulge</Text>
+                            <Text style={styles.sloganText}>connect . discover . influence</Text>
                             <View style={styles.buttonsContainer}>
                                 <Button
                                     style={styles.button}
                                     textStyle={{color: "white"}}
                                     onPress={() => navigate('Register')}
-                                    accessibilityLabel="Sign Up">SIGN UP</Button>
+                                    accessibilityLabel="Sign Up">Sign Up</Button>
                                 <Button
                                     style={styles.button}
                                     textStyle={{color: "white"}}
-                                    onPress={() => navigate('Login')}
-                                    accessibilityLabel="Sign In">SIGN IN</Button>
+                                    onPress={() => this.props.navigation.dispatch(dashboardAction)}
+                                    accessibilityLabel="Sign In">Sign In</Button>
                         </View>
                         </View>
                 </Image>

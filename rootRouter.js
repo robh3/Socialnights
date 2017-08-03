@@ -41,6 +41,12 @@ const AppRouter = StackNavigator({
             ...css.header,
         }
     },
+    Dashboard: {
+        screen: Dashboard,
+        navigationOptions: {
+            ...css.header,
+        }
+    },
 },{
     initialRouteName: 'Landing',
     headerMode: 'screen',
