@@ -4,12 +4,12 @@ import {StyleSheet, Platform, Dimensions} from "react-native";
 
 export const colors = {
     "background_dark": '#000',
-    "background_medium": '#121215',
+    "background_medium": '#121212',
     "background_light": '#d9e3f0',
     "button_bg": '#0693e3',
     "button_fg": '#d9e3f0',
     "text_light": '#d9d9d9',
-    "text_medium": '#455a64',
+    "text_medium": '#666',
     "text_dark": '#000',
 };
 
@@ -27,8 +27,8 @@ export const global = StyleSheet.create(
             flex: 1,
             padding: 8,
             flexDirection: 'column', // main axis
-            justifyContent: 'center', // main axis
-            alignItems: 'center', // cross axis
+            justifyContent: 'flex-start', // main axis
+            alignItems: 'flex-start', // cross axis
             backgroundColor: colors.background_medium,
         },
         title: {
@@ -94,24 +94,29 @@ export const header = {
     text: {
         paddingLeft: 8,
         color: colors.text_light,
-        fontFamily: values.font_body,
-        fontSize: values.font_title_size,
+        //fontFamily: values.font_body,
+        //fontSize: values.font_title_size,
     }
 
 };
 
 // more info https://goo.gl/eawcVg
 export const tabs = {
-    // text
-    labelStyle: {
-        fontFamily: values.font_body,
-        fontSize: values.font_body_size,
-    },
-    activeTintColor: colors.text_dark, // text color active tab
-    inactiveTintColor: colors.text_medium, // text color inactive tab
-    indicatorStyle: {backgroundColor: colors.button_bg}, // active tab highlight top
-    style: {
-        backgroundColor: colors.background_medium, // background color of tabs
-        borderTopColor: colors.background_light // active tab highlight bottom
-    }
+        showIcon: true,
+        showLabel: false,
+        activeTintColor: colors.button_fg,
+        inactiveTintColor: colors.text_medium,
+        style: {
+            backgroundColor: colors.background_dark,
+            ...Platform.select({
+                android: {
+                    height: 56,
+                }
+            })
+        },
+        indicatorStyle: {
+            backgroundColor: colors.button_fg
+        }
+
+
 };

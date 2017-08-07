@@ -6,13 +6,17 @@
     "version":"1.0.0",
     "orientation":"portrait",
     "primaryColor":"#000",
-    "icon":"https://socialnights.com/app/assets/app-icon.png",
+    "facebookScheme":"fb564874816917428",
+    "icon":"ssets/img/app-icon.png",
+
     "notification":{
-      "icon":"https://socialnights.com/app/assets/app-notification-icon.png",
+      "icon":"assets/img/app-notification-icon.png",
       "color":"#121215"
     },
     "loading":{
-      "icon":"https://socialnights.com/app/assets/app-icon.png"
+      "icon":"assets/img/logo@2x.png",
+      "backgroundColor": "#000",
+      "hideExponentText": true
     },
     "ios": {
       "bundleIdentifier": "com.socialnights.app"

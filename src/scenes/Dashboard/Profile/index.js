@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import * as css from 'src/style';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, StyleProvider } from 'native-base';
+
+import getTheme from 'socialnights/native-base-theme/components';
+import commonColor from 'socialnights/native-base-theme/variables/commonColor';
 
 export default class Profile extends Component {
 
-    static navigationOptions = {
-        title: 'Profile',
-    }
 
     constructor(props) {
         super(props);
@@ -22,9 +21,22 @@ export default class Profile extends Component {
         const {params} = this.props.navigation.state;
 
         return (
-            <View style={css.global.v_container}>
-                <Text style={css.global.body1}>Profile</Text>
-            </View>
+            <StyleProvider style={getTheme(commonColor)}>
+                <Container>
+                    <Header>
+                        <Body>
+                        <Title>My Account</Title>
+                        </Body>
+                        <Right />
+                    </Header>
+                    <Content>
+                        <Text>
+                            User
+                        </Text>
+                    </Content>
+
+                </Container>
+            </StyleProvider>
         );
     }
 

@@ -1,61 +1,90 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
-import { observable } from 'mobx';
-import { observer, inject } from 'mobx-react';
-import styled from 'styled-components/native';
-import debounce from 'lodash.debounce';
+import { ScrollView, View } from 'react-native';
+import { Container, Thumbnail, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, StyleProvider } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
-import SearchInput from '../../../components/SearchInput';
-import ListItem from '../../../components/ListItem';
+import getTheme from 'socialnights/native-base-theme/components';
+import commonColor from 'socialnights/native-base-theme/variables/commonColor';
 
-import type { SearchStore } from '../../../utils/types';
+import ListPeople from 'src/components/ListPeople';
+import Billboard from 'src/components/Billboard';
+import HomeOptions from 'src/components/HomeOptions';
+import UpcomingEvents from 'src/components/UpcomingEvents';
+import Featured from 'src/components/Featured';
+import Venues from 'src/components/Venues';
 
-type Props = {
-    searchStore: SearchStore;
-};
+var ads = [
+    'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
+    'https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?h=1024',
+    'https://images.unsplash.com/photo-1441448770220-76743f9e6af6?h=1024',
+    'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
+    'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024',
+    'https://images.unsplash.com/photo-1440964829947-ca3277bd37f8?h=1024',
+    'https://images.unsplash.com/photo-1440847899694-90043f91c7f9?h=1024'
+];
 
-const Container = styled.View`
-  marginLeft: 15;
-`;
+var events = [
+    'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
+    'https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?h=1024',
+    'https://images.unsplash.com/photo-1441448770220-76743f9e6af6?h=1024',
+    'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
+    'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024',
+    'https://images.unsplash.com/photo-1440964829947-ca3277bd37f8?h=1024',
+    'https://images.unsplash.com/photo-1440847899694-90043f91c7f9?h=1024'
+];
 
-@inject('searchStore')
-@observer
+
 export default class Home extends Component {
-    props: Props;
-    @observable query = '';
 
-    static navigationOptions = {
-        title: 'Spotify songs',
-    };
+    constructor(props) {
+        super(props);
+        console.log(props);
 
-    debounceInput = debounce((query) => { this.props.searchStore.getTrackList(query); }, 500);
+    }
 
-    onTextInputChange = (value: string) => {
-        this.query = value;
-        this.debounceInput(value);
-    };
+    componentDidMount() {
+
+    }
+
 
     render() {
+        const {params} = this.props.navigation.state;
+
         return (
+            <StyleProvider style={getTheme(commonColor)}>
             <Container>
-                <SearchInput
-                    value={this.query}
-                    onChangeText={(value) => { this.onTextInputChange(value); }}
-                    placeholder="Search..."
-                />
-                {this.props.searchStore.tracks && (
-                    <FlatList
-                        data={this.props.searchStore.tracks}
-                        keyExtractor={(_, i) => i}
-                        renderItem={({ item }) => (
-                            <ListItem
-                                imageUrl={item.album.images[0].url && item.album.images[0].url}
-                                songName={item.name}
-                            />
-                        )}
-                    />
-                )}
+
+                <Header>
+                    <Body>
+                    <Title>Dallas/Ft. Worth <Icon name='md-arrow-dropdown' style={{fontSize: 15}}/></Title>
+                    </Body>
+                    <Right>
+                        <Button transparent>
+                            <Icon name='search' />
+                        </Button>
+                    </Right>
+                </Header>
+
+                <Content>
+                    <ListPeople/>
+                    <Billboard/>
+                    <View style={{marginBottom: 15}}/>
+                    <HomeOptions/>
+                    <View style={{marginBottom: 15}}/>
+                    <View style={{marginBottom: 15, marginLeft: 10}}><Text style={{fontWeight: '700'}}> Featured Events </Text></View>
+                    <Featured />
+                    <View style={{marginBottom: 30}}/>
+                    <View style={{marginBottom: 15, marginLeft: 10}}><Text style={{fontWeight: '700'}}> Editors Picks </Text></View>
+                    <UpcomingEvents/>
+                    <View style={{marginBottom: 30}}/>
+                    <View style={{marginBottom: 15, marginLeft: 10}}><Text style={{fontWeight: '700'}}> Venues </Text></View>
+                    <Venues />
+                </Content>
+
             </Container>
+            </StyleProvider>
         );
     }
+
+
 }

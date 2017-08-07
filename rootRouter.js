@@ -44,12 +44,20 @@ const AppRouter = StackNavigator({
     Dashboard: {
         screen: Dashboard,
         navigationOptions: {
-            ...css.header,
+            header: null,
         }
     },
 },{
     initialRouteName: 'Landing',
     headerMode: 'screen',
+    titleStyle: {
+        color: '#fefefe',
+        fontFamily: 'MuseoSansRounded-300',
+        fontWeight: '300',
+        justifyContent: 'space-between',
+        textAlign: 'center'
+    },
+    tintColor: '#fefefe'
 });
 
 
